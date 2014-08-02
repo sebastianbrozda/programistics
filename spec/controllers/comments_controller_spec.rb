@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe CommentsController, :type => :controller do
   describe "POST 'create'" do
 
+    context "when user is not logged is" do
+      it "redirects him" do
+        post :create
+
+        expect(response).to redirect_to root_path
+      end
+    end
+
     context "when user is logged in" do
       let(:user) { FactoryGirl.build(:user) }
 
@@ -11,14 +19,16 @@ RSpec.describe CommentsController, :type => :controller do
       end
 
       it "creates comment" do
-        note_id = 1
+        note = double(Note, id: 1, private?: false)
         comment_body = 'comment body'
 
-        expect(CreateComment).to receive(:perform).with({note_id: note_id, comment_body: comment_body, user_id: user.id}) do
+        expect(Note).to receive(:find_by_id).with(note.id) { note }
+
+        expect(CreateComment).to receive(:perform).with({note_id: note.id, comment_body: comment_body, user_id: user.id}) do
           double(CreateComment, success?: true, message: ["message"])
         end
 
-        post :create, {comment_body: comment_body, note_id: note_id}
+        post :create, {comment_body: comment_body, note_id: note.id}
 
         expect(response).to be_success
         json = JSON.parse(response.body)
@@ -26,8 +36,13 @@ RSpec.describe CommentsController, :type => :controller do
         expect(json["msg"]).not_to be_blank
       end
 
-      it "shows error message when user try to add comment to private note" do
+      it "shows error message when user try to add comment to someones private note" do
+        note = double(Note, id: 1, private?: true, user_id: 123)
+        expect(Note).to receive(:find_by_id).with(note.id) { note }
 
+        post :create, {note_id: note.id}
+
+        expect(response).to redirect_to root_path
       end
     end
   end

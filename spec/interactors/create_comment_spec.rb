@@ -36,7 +36,7 @@ describe CreateComment do
 
       expect(note).to receive(:create_comment) do
         comment = Comment.new
-        expect(comment).to receive(:errors).twice { double('full_messages', full_messages: []) }
+        expect(comment).to receive(:errors).at_least(:once) { double('full_messages', full_messages: []) }
         comment
       end
 
