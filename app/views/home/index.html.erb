@@ -1,0 +1,16 @@
+<section id="page">
+  <%= render partial: "/layouts/subpage_header", locals: {title: "Home", subtitle: ""} %>
+  <section id="content" class="mt30 pb30">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <%= render partial: 'notes/notes', :locals => {notes: @notes} %>
+        </div>
+        <%= render partial: "layouts/slidebar" %>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </section>
+</section>
+

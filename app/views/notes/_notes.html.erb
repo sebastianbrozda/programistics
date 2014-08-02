@@ -1,0 +1,33 @@
+<% notes.each do |n| %>
+
+    <article class="post clearfix">
+
+      <div class="row">
+
+        <div class="postMeta col-sm-1 col-xs-2">
+          <i class="iconRounded icon-doc"></i>
+        </div>
+
+        <section class="col-sm-11 col-xs-10">
+          <h2><%= sanitize link_to n.title, note_path(n) %> </h2>
+
+          <p>
+            <%= sanitize n.short_body %>
+            <%= link_to 'show note', note_path(n), {class: 'readMore'} %>
+          </p>
+
+          <ul class="entry-meta">
+            <li class="entry-date"><a href="#"><i class="icon-pin"></i>&nbsp;<%= n.created_at %></a></li>
+            <li class="entry-author"><a href="#"><i class="icon-male"></i>&nbsp;<%= sanitize n.user_name %></a></li>
+            <li class="entry-comments"><a href="#"><i class="icon-comment-1"></i>&nbsp;12 comments</a></li>
+          </ul>
+
+
+        </section>
+
+      </div>
+    </article>
+
+    <hr class="lineLines mb40 mt30">
+
+<% end %>

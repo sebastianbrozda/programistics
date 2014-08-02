@@ -1,0 +1,29 @@
+<script>
+    $(function () {
+        programistics.favorites.init({
+            note_id: <%= @note.id %>,
+            isFavorite: <%= current_user ? current_user.favorite_note?(@note.id) : false %>});
+        programistics.notes.show.init({note_param: '<%= @note.to_param %>'})
+    })
+</script>
+
+<%= @note.note_type_name %>
+
+<%= @note.title %>
+<% if current_user.nil? || current_user.must_purchase_access_to_note?(@note) %>
+    purchase access to see this note
+    <button id="app-purchase-btn">purchase</button>
+<% else %>
+    <%= sanitize @note.body %>
+<% end %>
+Author: <%= @note.user_name %>
+<%= @note.tags.join(',') %>
+
+
+<% if current_user %>
+    <button id="app-add-note-to-favorites">Add to favorites</button>
+    <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
+<% end %>
+
+
+<%= render partial: 'comments/comment_form' %>

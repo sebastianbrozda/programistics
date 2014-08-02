@@ -1,0 +1,14 @@
+<script>
+  $(function(){
+     programistics.comments.init();
+  })
+</script>
+<% if current_user %>
+    <form id="comment_form">
+      comment:
+      <%= text_area_tag :comment_body %>
+      <%= submit_tag "Add comment" %>
+    </form>
+<% else %>
+    Log in to make a comment
+<% end %>

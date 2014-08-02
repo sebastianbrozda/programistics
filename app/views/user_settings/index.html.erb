@@ -1,0 +1,19 @@
+<script>
+    $(function () {
+        programistics.user_settings.init();
+    })
+</script>
+<%= form_tag "update_email", {id: "form_update_email"} %>
+<input type="email" id="email"/>
+<input type="submit" value="Change email"/>
+</form>
+
+<%= form_tag "update_bitcoin_wallet", {id: "form_bitcoin_wallet"} %>
+<input type="text" id="bitcoin_wallet"/>
+<input type="submit" value="Change bitcoin wallet"/>
+</form>
+
+<%= form_tag "upload_avatar", {multipart: true} %>
+<input type="file" id="user_avatar"/>
+<input type="submit" value="Upload avatar"/>
+</form>

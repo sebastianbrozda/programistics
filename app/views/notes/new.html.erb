@@ -1,0 +1,29 @@
+<script>
+    $(function () {
+        programistics.notes.form.init();
+    })
+</script>
+<% if @note.errors.any? %>
+    Errors: <br/>
+    <%= @note.errors.full_messages.join('<br/>') %>
+<% end %>
+
+<%= form_for @note do |f| %>
+    Title:
+    <%= f.text_field :title %>
+
+    Short body (optional)
+    <%= f.text_area :short_body %>
+    Body
+    <%= f.text_area :body %>
+    Type
+    <%= f.select :note_type_id, @note_types.collect { |t| [t.name, t.id] } %>
+    <div id="app-price-panel"> Price for access:
+      <%= f.text_field :price_for_access %> in bitcoins <br/>
+      your money will be send on your email account via coinbase.com
+    </div>
+    Tags
+    <%= text_field :tags, @note.tag_list %>
+
+    <%= f.submit %>
+<% end %>

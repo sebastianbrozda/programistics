@@ -1,0 +1,44 @@
+<div class="collapse navbar-collapse" id="mainMenu">
+
+    <!-- Main navigation -->
+    <ul class="nav navbar-nav pull-right">
+
+        <li class="primary">
+            <%= link_to 'Home', root_path, {class: 'firstLevel'} %>
+
+        </li>
+
+        <li class="sep"></li>
+
+        <li class="primary">
+            <%= link_to '+ New note', new_note_path, {class: 'firstLevel'} %>
+        </li>
+
+        <li class="sep"></li>
+
+        <% if current_user %>
+        <li class="primary">
+            <%= link_to 'My own notes', my_own_notes_path, {class: 'firstLevel'} %>
+        </li>
+
+        <li class="sep"></li>
+        <li class="primary hasSubMenu" id="menu-profile">
+            <%= link_to 'Profile', user_settings_path, {class: 'firstLevel'} %>
+
+            <ul class="subMenu">
+                <li>
+                    <%= link_to 'Log out', destroy_user_session_path, {method: :delete, class: 'firstLevel'} %>
+                </li>
+
+            </ul>
+        </li>
+        <% else %>
+        <li class="primary">
+            <%= link_to 'Log in', new_user_session_path, class: 'firstLevel' %>
+        </li>
+        <% end %>
+
+
+    </ul>
+</div>
+    
