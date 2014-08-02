@@ -36,15 +36,15 @@ describe CreateComment do
 
       expect(note).to receive(:create_comment) do
         comment = Comment.new
-        expect(comment).to receive(:errors) { [] }
+        expect(comment).to receive(:errors).twice { double('full_messages', full_messages: []) }
         comment
       end
 
       expect(Note).to receive(:find_by_id).with(note.id) { note }
 
-
       expect(CommentValidator).to receive(:new) do
-        double(CommentValidator, valid?: false, errors: ['error'])
+        double(CommentValidator, valid?: false,
+               errors: double('full_messages', full_messages: ['error1']))
       end
 
       create_comment = CreateComment.perform({note_id: note.id,

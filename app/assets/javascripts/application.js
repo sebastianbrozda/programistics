@@ -15,13 +15,14 @@
 // require turbolinks
 //= require_tree .
 
-programistics.helpers = {};
 programistics.helpers = (function () {
     var self = {};
 
     self.alert = function (resp) {
-        // todo: is msg is array
-        alert(resp.result + " " + resp.msg);
+        var msg = $.isArray(resp.msg) ? resp.msg.join('<br/>') : resp.msg;
+        var cssClass = resp.result ? 'success' : 'danger';
+
+        $('#content .container .row').first().prepend('<div class="alert alert-' + cssClass + '">' + msg + '</div>');
     };
 
     return self;

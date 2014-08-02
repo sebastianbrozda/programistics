@@ -13,7 +13,7 @@ class CreateComment
       context[:comment] = comment
       context[:message] = ["Comment has been added"]
     else
-      fail!(message: validator.errors + comment.errors)
+      fail!(message: validator.errors.full_messages + comment.errors.full_messages)
     end
   end
 end

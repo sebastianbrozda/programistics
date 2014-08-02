@@ -7,23 +7,40 @@
     })
 </script>
 
-<%= @note.note_type_name %>
-
-<%= @note.title %>
-<% if current_user.nil? || current_user.must_purchase_access_to_note?(@note) %>
-    purchase access to see this note
-    <button id="app-purchase-btn">purchase</button>
-<% else %>
-    <%= sanitize @note.body %>
-<% end %>
-Author: <%= @note.user_name %>
-<%= @note.tags.join(',') %>
+<section id="page">
+  <%= render partial: "/layouts/subpage_header", locals: {title: "Home", subtitle: ""} %>
+  <section id="content" class="mt30 pb30">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
 
 
-<% if current_user %>
-    <button id="app-add-note-to-favorites">Add to favorites</button>
-    <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
-<% end %>
+          <%= @note.note_type_name %>
+
+          <%= @note.title %>
+          <% if current_user.nil? || current_user.must_purchase_access_to_note?(@note) %>
+              purchase access to see this note
+              <button id="app-purchase-btn">purchase</button>
+          <% else %>
+              <%= sanitize @note.body %>
+          <% end %>
+          Author: <%= @note.user_name %>
+          <%= @note.tags.join(',') %>
 
 
-<%= render partial: 'comments/comment_form' %>
+          <% if current_user %>
+              <button id="app-add-note-to-favorites">Add to favorites</button>
+              <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
+          <% end %>
+
+
+          <%= render partial: 'comments/comment_form', locals: {note: @note} %>
+        </div>
+        <%= render partial: "layouts/slidebar" %>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </section>
+</section>
+

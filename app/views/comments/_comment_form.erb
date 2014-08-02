@@ -1,6 +1,6 @@
 <script>
   $(function(){
-     programistics.comments.init();
+     programistics.comments.init({note_id: <%= note.id %>});
   })
 </script>
 <% if current_user %>
