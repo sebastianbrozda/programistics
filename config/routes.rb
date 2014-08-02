@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "favorite/notes" => "favorites#notes", as: 'favorite_notes'
 
   get "notes/my_own" => "notes#my_own", as: 'my_own_notes'
-  resources :notes
+  resources :notes, only: [:show, :new, :create]
 
   devise_for :users
 

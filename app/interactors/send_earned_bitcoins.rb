@@ -17,6 +17,6 @@ class SendEarnedBitcoins
   end
 
   def self.message_to_seller(payment)
-    "Someone purchased access to your note: #{payment.note.title}"
+    "Someone purchased access to your note: #{payment.note_title}"
   end
 end

@@ -14,7 +14,7 @@ class CaptureTransactionFeeFromBlockExplorer
       payment.transaction_fee = self.class.get_transaction_fee_from_parser(payment)
       payment.save
       context[:transaction_with_fees] << payment
-    rescue Exception => ex
+    rescue => ex
       logger.info ex.message
     end
   end
