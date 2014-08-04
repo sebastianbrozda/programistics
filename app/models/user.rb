@@ -49,7 +49,6 @@ class User < ActiveRecord::Base
     !favorite_notes.where(note_id: note_id).first.nil?
   end
 
-  # todo: move to decorator
   def author?(note_id)
     !notes.where(id: note_id).first.nil?
   end

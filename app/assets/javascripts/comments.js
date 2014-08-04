@@ -19,7 +19,9 @@ programistics.comments = (function () {
                         loadComments(options.note_id);
                     }
                 }, "json");
-        })
+        });
+
+        loadComments(options.note_id);
     }
 
 

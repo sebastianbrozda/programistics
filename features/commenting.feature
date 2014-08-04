@@ -9,7 +9,7 @@ Feature: Commenting
     Given I visit the "ruby on rails" note page
     Then I should see "Log in to make a comment"
 
-  Scenario: User is logged in
+  Scenario: User is logged in s
     Given I am logged in
     When I visit the "ruby on rails" note page
     And I submit comment creation form with valid data for note

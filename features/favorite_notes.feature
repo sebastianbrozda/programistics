@@ -33,3 +33,4 @@ Feature: Favorite
     Given I visit the home page
     When I click "ruby on rails" link
     Then I should not see "app-add-note-to-favorites"
+    And I wait 1 seconds

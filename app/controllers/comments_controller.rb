@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  policy(:comment) { {user: current_user, note_id: note_id} }
+  policy(:create_comment, only: :create) { {user: current_user, note_id: note_id} }
+  policy(:listing_comment, only: :list) { {user: current_user, note_id: note_id} }
 
   def create
     create_comment = CreateComment.perform({note_id: note_id, user_id: current_user.id, comment_body: comment_body})

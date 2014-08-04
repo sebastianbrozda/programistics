@@ -57,35 +57,32 @@ RSpec.describe CommentsController, :type => :controller do
 
   describe "GET 'list'" do
 
-    context 'when user is NOT logged in' do
-      it 'redirects him to the home page' do
-        get :list, note_id: 1
-
-        expect(response).to redirect_to root_path
-      end
-    end
-
-    context 'when user is logged in' do
-      before do
-        sign_in
-      end
-
-      it "shows list of comments" do
-        mock_policy_allowed(controller, true)
-
+    context 'when note has comments and user is allowed' do
+      it 'shows comments' do
         note_id = 1
+
+        mock_policy_allowed(controller, true)
 
         expect(GetCommentsForNote).to receive(:perform).with({note_id: note_id}) do
           double(GetCommentsForNote, comments: [double(Comment), double(Comment)])
         end
 
-        get :list, note_id: 1
+        get :list, note_id: note_id
 
         expect(response.status).to eq 200
         expect(response).to render_template(partial: "comments/_list")
         expect(assigns(:comments)).not_to be_empty
       end
+    end
 
+    context 'when note has comments and user is NOT allowed' do
+      it 'redirects to the home page' do
+        mock_policy_allowed(controller, false)
+
+        get :list, note_id: 1
+
+        expect(response).to redirect_to root_path
+      end
     end
   end
 end
