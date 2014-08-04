@@ -12,5 +12,6 @@ Feature: Commenting
   Scenario: User is logged in
     Given I am logged in
     When I visit the "ruby on rails" note page
-    And I submit comment creation form with valid data for "ruby on rails" note
+    And I submit comment creation form with valid data for note
     Then I should see "Comment has been added"
+    And I should see added comment

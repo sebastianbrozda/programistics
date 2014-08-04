@@ -46,4 +46,13 @@ RSpec.describe CommentsController, :type => :controller do
       end
     end
   end
+
+  describe "GET 'list'" do
+
+    it "shows list of comments" do
+      get :list, note_id: 1
+
+      expect(response.status).to be_success
+    end
+  end
 end

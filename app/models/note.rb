@@ -8,6 +8,7 @@
 #  short_body       :text
 #  user_id          :integer
 #  note_type_id     :integer
+#  comment_count    :integer          default(0)
 #  price_for_access :decimal(8, 2)    default(0.0)
 #  decimal          :decimal(8, 2)    default(0.0)
 #  created_at       :datetime
@@ -21,6 +22,8 @@ class Note < ActiveRecord::Base
   belongs_to :user
   belongs_to :note_type
   has_many :favorite_notes
+
+  before_save :increment_comment_count
 
   validates :title, :presence => true, :length => {:minimum => 3}
   validates :body, :presence => true, :length => {:minimum => 3}
@@ -50,5 +53,10 @@ class Note < ActiveRecord::Base
 
   def create_comment
     comments.create
+  end
+
+  private
+  def increment_comment_count
+    self.comment_count += 1
   end
 end

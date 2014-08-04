@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   post 'comments/create' => 'comments#create'
+  get 'comments/:note_id' => 'comments#list'
 
   get 'my_earnings/index'
   get 'my_earnings' => "my_earnings#index"

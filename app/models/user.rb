@@ -14,8 +14,13 @@
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
 #  user_name              :string(50)       not null
+#  bitcoin_wallet         :string(50)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  avatar_file_name       :string(255)
+#  avatar_content_type    :string(255)
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
 #
 
 class User < ActiveRecord::Base

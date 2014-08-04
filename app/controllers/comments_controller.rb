@@ -6,6 +6,10 @@ class CommentsController < ApplicationController
     render json: {msg: create_comment.message, result: create_comment.success?}
   end
 
+  def list
+    render text: 'test'
+  end
+
   def unauthorized(message)
     redirect_to root_path
   end

@@ -6,12 +6,12 @@
 #  user_id           :integer          not null
 #  note_id           :integer          not null
 #  status            :integer          not null
-#  settled          :boolean          default(FALSE)
+#  settled           :boolean          default(FALSE)
 #  custom            :string(40)       not null
-#  price             :decimal(8, 2)    default(0.0)
-#  decimal           :decimal(8, 2)    default(0.0)
+#  price             :decimal(12, 8)   default(0.0)
 #  coinbase_order_id :string(255)
 #  transaction_hash  :string(255)
+#  transaction_fee   :decimal(12, 8)
 #  created_at        :datetime
 #  updated_at        :datetime
 #

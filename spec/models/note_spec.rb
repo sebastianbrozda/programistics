@@ -8,6 +8,7 @@
 #  short_body       :text
 #  user_id          :integer
 #  note_type_id     :integer
+#  comment_count    :integer          default(0)
 #  price_for_access :decimal(8, 2)    default(0.0)
 #  decimal          :decimal(8, 2)    default(0.0)
 #  created_at       :datetime
@@ -97,8 +98,26 @@ RSpec.describe Note, :type => :model do
     expect(note.paid_access?).to be true
   end
 
-  it "creates comment" do
-    note = FactoryGirl.create(:note)
-    expect(note.create_comment).not_to be_nil
+  describe "#create_comment" do
+    let(:note) { FactoryGirl.create(:note) }
+    let(:comment) do
+      comment = note.create_comment
+      comment.user = FactoryGirl.create(:user)
+      comment.comment = Faker::Lorem.words
+      comment
+    end
+
+    before do
+      comment.save
+      note.reload
+    end
+
+    it "creates comment" do
+      expect(note.comments.size).to eq 1
+    end
+
+    it "increments comment_count" do
+      expect(note.comment_count).to eq 1
+    end
   end
 end
