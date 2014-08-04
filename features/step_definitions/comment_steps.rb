@@ -5,6 +5,9 @@ And(/^I submit comment creation form with valid data for note$/) do
 end
 
 And(/^I should see added comment$/) do
-  sleep 2
+  sleep 1
   step %q{I should see "comment test"}
+end
+
+And(/^there are comments:$/) do |table|
 end

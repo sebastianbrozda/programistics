@@ -14,10 +14,10 @@
       <div class="row">
         <div class="col-md-8">
 
-
           <%= @note.note_type_name %>
 
           <%= @note.title %>
+          <% #todo: move to decorator  %>
           <% if current_user.nil? || current_user.must_purchase_access_to_note?(@note) %>
               purchase access to see this note
               <button id="app-purchase-btn">purchase</button>
@@ -25,16 +25,17 @@
               <%= sanitize @note.body %>
           <% end %>
           Author: <%= @note.user_name %>
+          <% #todo: move to decorator  %>
           <%= @note.tags.join(',') %>
-
 
           <% if current_user %>
               <button id="app-add-note-to-favorites">Add to favorites</button>
               <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
           <% end %>
 
-
           <%= render partial: 'comments/comment_form', locals: {note: @note} %>
+
+          <div id="comment-list"></div>
         </div>
         <%= render partial: "layouts/slidebar" %>
       </div>

@@ -2,8 +2,10 @@ programistics.comments = (function () {
 
     var self = {};
 
-    function loadComments() {
-
+    function loadComments(note_id) {
+        $.get('/comments/' + note_id, {}, function (html) {
+            $('#comment-list').html(html);
+        });
     }
 
     self.init = function (options) {
@@ -14,7 +16,7 @@ programistics.comments = (function () {
                 function (resp) {
                     programistics.helpers.alert(resp);
                     if (resp.result) {
-                        loadComments();
+                        loadComments(options.note_id);
                     }
                 }, "json");
         })
