@@ -7,8 +7,17 @@ class NoteDecorator < Draper::Decorator
   end
 
   def short_body
-    return "[empty]..." if object.short_body.blank?
-    "#{object.short_body.gsub(/\.*/, '')}..."
+    if object.short_body.blank?
+      return "[empty]..." if object.paid_access?
+      return "#{remove_dots_from_the_end(object.body.split(' ').take(15).join(' '))}..."
+    end
+
+    "#{remove_dots_from_the_end(object.short_body)}..."
+  end
+
+  private
+  def remove_dots_from_the_end(text)
+    text.gsub(/\.*$/, '')
   end
 
 end
