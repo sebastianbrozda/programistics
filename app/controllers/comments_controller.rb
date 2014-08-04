@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  policy(:can_add_comment) { {user: current_user, note_id: note_id} }
+  policy(:comment) { {user: current_user, note_id: note_id} }
 
   def create
     create_comment = CreateComment.perform({note_id: note_id, user_id: current_user.id, comment_body: comment_body})
@@ -7,7 +7,8 @@ class CommentsController < ApplicationController
   end
 
   def list
-    render text: 'test'
+    @comments = GetCommentsForNote.perform({note_id: note_id}).comments
+    render partial: "comments/list", locals: {comments: @comments}
   end
 
   def unauthorized(message)

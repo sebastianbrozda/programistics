@@ -1,4 +1,4 @@
-class CanAddCommentPolicy
+class CommentPolicy
   include Policy::PolicyObject
 
   def perform

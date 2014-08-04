@@ -14,7 +14,6 @@ class PurchaseController < ApplicationController
   def can_purchase
     can_purchase = CanPurchasePolicy.perform({user: current_user, note: selected_note})
 
-
     redirect_not_allowed_user(can_purchase)
   end
 

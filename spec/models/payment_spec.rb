@@ -26,7 +26,7 @@ RSpec.describe Payment, :type => :model do
     expect(p.price_in_cents).to eq 10_000_000_000
   end
 
-  context "data" do
+  describe "finders" do
     let(:user) { FactoryGirl.create(:user) }
     let(:note) { FactoryGirl.create(:note, user: user) }
 

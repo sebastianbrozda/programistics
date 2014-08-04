@@ -73,29 +73,37 @@ RSpec.describe Note, :type => :model do
     expect(note.user_name).to eq(user_name)
   end
 
-  it "creates tags" do
-    note = FactoryGirl.build(:note, user: FactoryGirl.create(:user))
-    note.tag_list = "ruby,rails"
+  describe "#tag_list" do
+    it "creates tags" do
+      note = FactoryGirl.build(:note, user: FactoryGirl.create(:user))
+      note.tag_list = "ruby,rails"
 
-    note.save
-    note.reload
+      note.save
+      note.reload
 
-    expect(note.tags.size).to eq(2)
+      expect(note.tags.size).to eq(2)
+    end
   end
 
-  it "returns true when it is private" do
-    note = Note.new note_type_id: NoteType::TYPE_PRIVATE
-    expect(note.private?).to be true
+  describe "#private?" do
+    it "returns true when it is private" do
+      note = Note.new note_type_id: NoteType::TYPE_PRIVATE
+      expect(note.private?).to be true
+    end
   end
 
-  it "returns true when it is public" do
-    note = Note.new note_type_id: NoteType::TYPE_PUBLIC
-    expect(note.public?).to be true
+  describe "public?" do
+    it "returns true when it is public" do
+      note = Note.new note_type_id: NoteType::TYPE_PUBLIC
+      expect(note.public?).to be true
+    end
   end
 
-  it "returns true when it is paid access" do
-    note = Note.new note_type_id: NoteType::TYPE_PAID_ACCESS
-    expect(note.paid_access?).to be true
+  describe "paid_access?" do
+    it "returns true when it is paid access" do
+      note = Note.new note_type_id: NoteType::TYPE_PAID_ACCESS
+      expect(note.paid_access?).to be true
+    end
   end
 
   describe "#create_comment" do
