@@ -23,7 +23,7 @@ class Note < ActiveRecord::Base
   belongs_to :note_type
   has_many :favorite_notes
 
-  before_save :increment_comment_count
+  before_save :reload_comment_count
 
   validates :title, :presence => true, :length => {:minimum => 3}
   validates :body, :presence => true, :length => {:minimum => 3}
@@ -56,7 +56,7 @@ class Note < ActiveRecord::Base
   end
 
   private
-  def increment_comment_count
-    self.comment_count += 1
+  def reload_comment_count
+    self.comment_count = comments.count
   end
 end

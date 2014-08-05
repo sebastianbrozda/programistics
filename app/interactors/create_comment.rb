@@ -10,6 +10,8 @@ class CreateComment
     validator = CommentValidator.new comment
 
     if validator.valid? && comment.save
+      note.save
+
       context[:comment] = comment
       context[:message] = ["Comment has been added"]
     else

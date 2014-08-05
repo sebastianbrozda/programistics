@@ -117,15 +117,15 @@ RSpec.describe Note, :type => :model do
 
     before do
       comment.save
-      note.reload
+      note.save
     end
 
     it "creates comment" do
-      expect(note.comments.size).to eq 1
+      expect(Note.find(note.id).comments.size).to eq 1
     end
 
     it "increments comment_count" do
-      expect(note.comment_count).to eq 1
+      expect(Note.find(note.id).comment_count).to eq 1
     end
   end
 end

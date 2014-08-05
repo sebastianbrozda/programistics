@@ -11,8 +11,9 @@ describe CreateComment do
         expect(comment).to receive(:save) { true }
         comment
       end
-      expect(Note).to receive(:find_by_id).with(note.id) { note }
+      expect(note).to receive(:save)
 
+      expect(Note).to receive(:find_by_id).with(note.id) { note }
 
       expect(CommentValidator).to receive(:new) do
         double(CommentValidator, valid?: true)
@@ -33,7 +34,6 @@ describe CreateComment do
 
   context "and comment is invalid" do
     it "returns message error" do
-
       expect(note).to receive(:create_comment) do
         comment = Comment.new
         expect(comment).to receive(:errors).at_least(:once) { double('full_messages', full_messages: []) }
