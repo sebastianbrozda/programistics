@@ -1,4 +1,6 @@
 class NoteDecorator < Draper::Decorator
+  include ActionView::Helpers::TextHelper
+
   decorates :note
   delegate_all
 
@@ -13,6 +15,11 @@ class NoteDecorator < Draper::Decorator
     end
 
     "#{remove_dots_from_the_end(object.short_body)}..."
+  end
+
+  def comment_count
+    return "no comments" if object.comment_count == 0
+    pluralize(object.comment_count, 'comment')
   end
 
   private

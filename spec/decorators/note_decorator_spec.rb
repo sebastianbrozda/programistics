@@ -31,4 +31,21 @@ describe NoteDecorator do
     end
   end
 
+  describe "#comment_count" do
+    it "generates message for no comments" do
+      decorated = decorate double(Note, comment_count: 0)
+      expect(decorated.comment_count).to eq "no comments"
+    end
+
+    it "generates message for one comment" do
+      decorated = decorate double(Note, comment_count: 1)
+      expect(decorated.comment_count).to eq "1 comment"
+    end
+
+    it "generates message for comments" do
+      decorated = decorate double(Note, comment_count: 2)
+      expect(decorated.comment_count).to eq "2 comments"
+    end
+  end
+
 end
