@@ -22,6 +22,29 @@ class NoteDecorator < Draper::Decorator
     pluralize(object.comment_count, 'comment')
   end
 
+  def tags
+    object.tags.join(', ')
+  end
+
+  def slug
+    object.to_param
+  end
+
+  def icon
+    return "icon-doc" if object.public?
+    return "icon-bitcoin" if object.paid_access?
+    return "icon-lock" if object.private?
+    "#"
+  end
+
+  # todo: move to decorator
+  def has_to_purchase_access?(user)
+    return false unless paid_access?
+    return true if !user
+    return true if !user.author?(id) && !user.purchased?(id)
+    false
+  end
+
   private
   def remove_dots_from_the_end(text)
     text.gsub(/\.*$/, '')

@@ -66,13 +66,6 @@ RSpec.describe User, :type => :model do
     expect(user.author? note.id).to be true
   end
 
-  it "returns true if must purchase note access" do
-    user = FactoryGirl.build(:user)
-    note = FactoryGirl.build(:paid_access_note, user_id: 0)
-
-    expect(user.must_purchase_access_to_note?(note)).to be true
-  end
-
   it "returns true when user has paid access to note" do
     user = FactoryGirl.create(:user)
     paid_access_note = FactoryGirl.create(:note, note_type: FactoryGirl.create(:paid_access_note_type))

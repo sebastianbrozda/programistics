@@ -18,12 +18,12 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = ReturnNoteBySlugAndId.perform({id: params[:id]}).note
+    @note = NoteDecorator.decorate(ReturnNoteBySlugAndId.perform({id: params[:id]}).note)
   end
 
   def my_own
     show_all_my_own_notes = ShowAllMyOwnNotes.perform({user: current_user})
-    @notes = show_all_my_own_notes.notes
+    @notes = NoteDecorator.decorate_collection show_all_my_own_notes.notes
   end
 
   def unauthorized(message)

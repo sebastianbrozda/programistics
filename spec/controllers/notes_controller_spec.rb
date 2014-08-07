@@ -72,6 +72,7 @@ RSpec.describe NotesController, :type => :controller do
       get :show, id: 'title1,1'
 
       expect(assigns[:note]).not_to be_nil
+      expect(assigns[:note]).to be_decorated
       expect(response.status).to eq(200)
     end
   end
@@ -97,6 +98,7 @@ RSpec.describe NotesController, :type => :controller do
 
       expect(response.status).to eq(200)
       expect(assigns[:notes].size).to eq(notes.size)
+      expect(assigns[:notes]).to be_decorated
     end
   end
 end

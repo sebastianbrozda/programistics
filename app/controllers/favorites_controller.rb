@@ -7,7 +7,7 @@ class FavoritesController < ApplicationController
 
   def notes
     user_fav_note_list = UserFavoriteNoteList.perform({user: current_user})
-    @notes = user_fav_note_list.notes
+    @notes = NoteDecorator.decorate_collection user_fav_note_list.notes
   end
 
   def remove_note_from_favorites

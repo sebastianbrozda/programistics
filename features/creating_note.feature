@@ -23,4 +23,4 @@ Feature: Creating a note
     Given I fill creation form to create paid access note
     And I submit note form creation
     When I should be redirected to the newly created note
-    Then I should see "paid access" label and note body
+    Then I should see "icon-bitcoin" and note body

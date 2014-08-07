@@ -63,7 +63,7 @@ Given(/^I fill creation form to create paid access note$/) do
   fill_in :note_price_for_access, with: 100
 end
 
-Then(/^I should see "([^"]*)" label and note body$/) do |type_name|
+Then(/^I should see "([^"]*)" and note body$/) do |type_name|
   step %Q{I should see "#{type_name}"}
   step %Q{I should see "Note body"}
 end

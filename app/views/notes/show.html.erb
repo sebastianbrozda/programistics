@@ -3,7 +3,7 @@
         programistics.favorites.init({
             note_id: <%= @note.id %>,
             isFavorite: <%= current_user ? current_user.favorite_note?(@note.id) : false %>});
-        programistics.notes.show.init({note_param: '<%= @note.to_param %>'})
+        programistics.notes.show.init({note_param: '<%= @note.slug %>'})
     })
 </script>
 
@@ -14,24 +14,55 @@
       <div class="row">
         <div class="col-md-8">
 
-          <%= @note.note_type_name %>
+          <article class="post clearfix">
+            <div class="postPic">
+              <div class="imgBorder mb15">
+              </div>
+            </div>
+            <div class="row">
+              <div class="postMeta col-sm-1 col-xs-2">
+                <i class="iconRounded <%= @note.icon %>"></i>
+              </div>
 
-          <%= @note.title %>
-          <% #todo: move to decorator  %>
-          <% if current_user.nil? || current_user.must_purchase_access_to_note?(@note) %>
-              purchase access to see this note
-              <button id="app-purchase-btn">purchase</button>
-          <% else %>
-              <%= sanitize @note.body %>
-          <% end %>
-          Author: <%= @note.user_name %>
-          <% #todo: move to decorator  %>
-          <%= @note.tags.join(',') %>
+              <section class="col-sm-11 col-xs-10">
+                <h2><a href="blog-post.html"> <%= @note.title %></a></h2>
+                <ul class="entry-meta">
+                  <li class="entry-date"><a href="#"><i class="icon-pin"></i>&nbsp;<%= @note.created_at %></a></li>
+                  <li class="entry-author">
+                    <a href="#"><i class="icon-male"></i>&nbsp;<%= sanitize @note.user_name %></a>
+                  </li>
+                  <li class="entry-comments">
+                    <a href="#"><i class="icon-comment-1"></i>&nbsp;<%= @note.comment_count %></a>
+                  </li>
 
-          <% if current_user %>
-              <button id="app-add-note-to-favorites">Add to favorites</button>
-              <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
-          <% end %>
+                  <%= @note.tags %>
+
+                </ul>
+
+                <% if current_user %>
+                    <button id="app-add-note-to-favorites">Add to favorites</button>
+                    <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
+                <% end %>
+
+                <% if @note.has_to_purchase_access?(current_user) %>
+                    purchase access to see this note
+                    <button id="app-purchase-btn">purchase</button>
+                <% else %>
+                    <%= sanitize @note.body %>
+                <% end %>
+
+
+              </section>
+            </div>
+          </article>
+
+
+
+
+
+
+
+
 
           <%= render partial: 'comments/comment_form', locals: {note: @note} %>
 

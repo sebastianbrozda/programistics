@@ -55,6 +55,7 @@ RSpec.describe FavoritesController, :type => :controller do
 
       expect(response.status).to eq(200)
       expect(assigns[:notes]).not_to be_nil
+      expect(assigns[:notes]).to be_decorated
     end
 
     it "removes note from favorites" do

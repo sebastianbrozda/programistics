@@ -58,11 +58,6 @@ class User < ActiveRecord::Base
     !purchased_notes.where(note_id: note_id).first.nil?
   end
 
-  # todo: move to decorator
-  def must_purchase_access_to_note?(note)
-    note.paid_access? && (!author?(note.id) && !purchased?(note.id))
-  end
-
   def bitcoin_address
     return email if bitcoin_wallet.blank?
     bitcoin_wallet

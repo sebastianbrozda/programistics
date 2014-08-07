@@ -48,4 +48,93 @@ describe NoteDecorator do
     end
   end
 
+  describe "#tags" do
+    it "generates tags" do
+      decorated = decorate double(Note, tags: %w{tag1 tag2 tag3})
+      expect(decorated.tags).to eq "tag1, tag2, tag3"
+    end
+  end
+
+  describe "#icon" do
+    it "generates document icon for public note" do
+      decorated = decorate double(Note, public?: true, paid_access?: false, private?: false)
+      expect(decorated.icon).to eq "icon-doc"
+    end
+
+    it "generates bitcoin icon for note with paid access" do
+      decorated = decorate double(Note, public?: false, paid_access?: true, private?: false)
+      expect(decorated.icon).to eq "icon-bitcoin"
+    end
+
+    it "generates lock icon for private note" do
+      decorated = decorate double(Note, public?: false, paid_access?: false, private?: true)
+      expect(decorated.icon).to eq "icon-lock"
+    end
+  end
+
+  describe "#slug" do
+    it "generates slug" do
+      decorated = decorate double(Note, title: "example", id: 1)
+      expect(decorated.slug).to eq decorated.to_param
+    end
+  end
+
+  describe "#has_to_purchase_access?(user)" do
+    context "when access to the note is free" do
+      let(:note) { decorate double(Note, paid_access?: false) }
+
+      context "and when user is not logged in" do
+        it "returns false" do
+          expect(note.has_to_purchase_access?(nil)).to be false
+        end
+      end
+
+      context "and when user is logged in" do
+        it "returns false" do
+          expect(note.has_to_purchase_access?(double(User))).to be false
+        end
+      end
+    end
+
+    context "when access to the note is NOT free" do
+      let(:note) { decorate double(Note, id: 1, paid_access?: true) }
+      let(:user) { double(User, id: 10) }
+
+      context "and user is an author" do
+        it "returns false" do
+          expect(user).to receive(:author?).with(note.id) { true }
+          expect(note.has_to_purchase_access?(user)).to be false
+        end
+      end
+
+      context "and user is NOT an author" do
+        let(:author) do
+          expect(user).to receive(:author?).with(note.id) { false }
+          user
+        end
+
+        context "and don't has access to read it" do
+          it "returns true" do
+            expect(author).to receive(:purchased?).with(note.id) { false }
+            expect(note.has_to_purchase_access?(author)).to be true
+          end
+        end
+
+        context "and has access to read it" do
+          it "returns false" do
+            expect(author).to receive(:purchased?).with(note.id) { true }
+            expect(note.has_to_purchase_access?(author)).to be false
+          end
+        end
+      end
+
+      context "and user is NOT logged in" do
+        it "returns true" do
+          expect(note.has_to_purchase_access?(nil)).to be true
+        end
+      end
+    end
+
+  end
+
 end

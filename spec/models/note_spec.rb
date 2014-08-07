@@ -127,5 +127,6 @@ RSpec.describe Note, :type => :model do
     it "increments comment_count" do
       expect(Note.find(note.id).comment_count).to eq 1
     end
+
   end
 end
