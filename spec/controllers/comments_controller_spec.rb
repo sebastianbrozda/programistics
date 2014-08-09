@@ -72,6 +72,7 @@ RSpec.describe CommentsController, :type => :controller do
         expect(response.status).to eq 200
         expect(response).to render_template(partial: "comments/_list")
         expect(assigns(:comments)).not_to be_empty
+        expect(assigns(:comments)).to be_decorated
       end
     end
 

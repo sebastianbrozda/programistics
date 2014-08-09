@@ -62,4 +62,8 @@ class User < ActiveRecord::Base
     return email if bitcoin_wallet.blank?
     bitcoin_wallet
   end
+
+  def avatar_thumb
+    avatar.url(:thumb)
+  end
 end

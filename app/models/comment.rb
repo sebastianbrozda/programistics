@@ -31,4 +31,8 @@ class Comment < ActiveRecord::Base
   def author
     user.user_name
   end
+
+  def avatar_thumb
+    user.avatar_thumb
+  end
 end

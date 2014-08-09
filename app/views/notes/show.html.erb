@@ -19,10 +19,25 @@
               <div class="imgBorder mb15">
               </div>
             </div>
+
+            <div class="" row>
+              <% if current_user %>
+                  <div style="float:right">
+                    <button class="btn btn-default btn-sm" id="app-add-note-to-favorites">Add to favorites</button>
+                    <button class="btn btn-default btn-sm" id="app-remove-note-from-favorites" style="display:none">Remove
+                      from favorites
+                    </button>
+                  </div>
+              <% end %>
+            </div>
+
             <div class="row">
+
+
               <div class="postMeta col-sm-1 col-xs-2">
                 <i class="iconRounded <%= @note.icon %>"></i>
               </div>
+
 
               <section class="col-sm-11 col-xs-10">
                 <h2><a href="blog-post.html"> <%= @note.title %></a></h2>
@@ -35,14 +50,11 @@
                     <a href="#"><i class="icon-comment-1"></i>&nbsp;<%= @note.comment_count %></a>
                   </li>
 
-                  <%= @note.tags %>
+                  <div class="tagCloud">
+                    <%= sanitize @note.tags %>
+                  </div>
 
                 </ul>
-
-                <% if current_user %>
-                    <button id="app-add-note-to-favorites">Add to favorites</button>
-                    <button id="app-remove-note-from-favorites" style="display:none">Remove from favorites</button>
-                <% end %>
 
                 <% if @note.has_to_purchase_access?(current_user) %>
                     purchase access to see this note
@@ -56,17 +68,10 @@
             </div>
           </article>
 
-
-
-
-
-
-
-
+          <div id="comment-list"></div>
 
           <%= render partial: 'comments/comment_form', locals: {note: @note} %>
 
-          <div id="comment-list"></div>
         </div>
         <%= render partial: "layouts/slidebar" %>
       </div>

@@ -20,3 +20,7 @@ And(/^there are comments:$/) do |table|
     comment.save
   end
 end
+
+And(/^Comment body field should be empty$/) do
+  expect(find_field('comment_body').value).to be_blank
+end

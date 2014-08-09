@@ -1,5 +1,6 @@
 class NoteDecorator < Draper::Decorator
   include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
 
   decorates :note
   delegate_all
@@ -23,7 +24,7 @@ class NoteDecorator < Draper::Decorator
   end
 
   def tags
-    object.tags.join(', ')
+    object.tags.map { |t| "<a href=\"#{notes_by_tag_path(t)}\">#{t}</a>" }.join(' ')
   end
 
   def slug
@@ -37,7 +38,6 @@ class NoteDecorator < Draper::Decorator
     "#"
   end
 
-  # todo: move to decorator
   def has_to_purchase_access?(user)
     return false unless paid_access?
     return true if !user

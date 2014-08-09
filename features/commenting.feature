@@ -14,4 +14,5 @@ Feature: Commenting
     When I visit the "ruby on rails" note page
     And I submit comment creation form with valid data for note
     Then I should see "Comment has been added"
+    And Comment body field should be empty
     And I should see added comment

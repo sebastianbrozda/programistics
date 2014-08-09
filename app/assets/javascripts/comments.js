@@ -16,6 +16,7 @@ programistics.comments = (function () {
                 function (resp) {
                     programistics.helpers.alert(resp);
                     if (resp.result) {
+                        $('#comment_body').val('');
                         loadComments(options.note_id);
                     }
                 }, "json");

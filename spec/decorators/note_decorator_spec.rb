@@ -51,7 +51,7 @@ describe NoteDecorator do
   describe "#tags" do
     it "generates tags" do
       decorated = decorate double(Note, tags: %w{tag1 tag2 tag3})
-      expect(decorated.tags).to eq "tag1, tag2, tag3"
+      expect(decorated.tags).to eq '<a href="/notes/tag/tag1">tag1</a> <a href="/notes/tag/tag2">tag2</a> <a href="/notes/tag/tag3">tag3</a>'
     end
   end
 

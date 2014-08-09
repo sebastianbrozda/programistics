@@ -1,13 +1,15 @@
 <script>
-  $(function(){
-     programistics.comments.init({note_id: <%= note.id %>});
-  })
+    $(function () {
+        programistics.comments.init({note_id: <%= note.id %>});
+    })
 </script>
 <% if current_user %>
-    <form id="comment_form">
-      comment:
-      <%= text_area_tag :comment_body %>
-      <%= submit_tag "Add comment" %>
+    <form method="post" id="comment_form" role="form">
+      <div class="form-group">
+        <label for="comment" style="padding-top: 15px">Leave a comment</label>
+        <textarea cols="5" class="form-control" rows="5" name="comment_body" id="comment_body" placeholder="Comment *"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" name="submitComment">Add comment</button>
     </form>
 <% else %>
     Log in to make a comment

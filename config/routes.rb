@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   post 'comments/create' => 'comments#create'
   get 'comments/:note_id' => 'comments#list'
 
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   get "favorite/notes" => "favorites#notes", as: 'favorite_notes'
 
   get "notes/my_own" => "notes#my_own", as: 'my_own_notes'
+  get 'notes/tag/:tag' => 'notes#my_own', as: "notes_by_tag"
+
   resources :notes, only: [:show, :new, :create]
 
   devise_for :users

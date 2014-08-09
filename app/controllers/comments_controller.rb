@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
   def list
     @comments = GetCommentsForNote.perform({note_id: note_id}).comments
-    render partial: "comments/list", locals: {comments: @comments}
+    render partial: "comments/list", locals: {comments: CommentDecorator.decorate_collection(@comments)}
   end
 
   def unauthorized(message)

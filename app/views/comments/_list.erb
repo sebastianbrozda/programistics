@@ -1,5 +1,21 @@
-<% comments.each do |c| %>
-    <%= c.author %>
-    <%= c.comment %>
-    <%= c.created_at %>
-<% end %>
+<section class="clearfix comments pt30">
+  <h3 class="commentNumbers">Comments (<%= comments.size %>)</h3>
+  <% comments.each do |c| %>
+      <div class="media"><a class="pull-left" href="#">
+        <div class="imgWrapper">
+          <img src="<%= c.avatar_thumb %>" alt=""/></div>
+      </a>
+
+        <div class="media-body">
+          <div class="clearfix">
+            <h4 class="media-heading"><%= c.author %></h4>
+
+            <div class="commentInfo"><span> <%= c.created_at %></span></div>
+          </div>
+          <%= simple_format c.comment.comment %>
+        </div>
+      </div>
+  <% end %>
+</section>
+
+

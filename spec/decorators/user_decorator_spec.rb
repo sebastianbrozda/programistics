@@ -5,5 +5,4 @@ describe UserDecorator do
   def decorate(user)
     UserDecorator.decorate user
   end
-
 end

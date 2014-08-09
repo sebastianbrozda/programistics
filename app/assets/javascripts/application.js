@@ -22,7 +22,14 @@ programistics.helpers = (function () {
         var msg = $.isArray(resp.msg) ? resp.msg.join('<br/>') : resp.msg;
         var cssClass = resp.result ? 'success' : 'danger';
 
-        $('#content .container .row').first().prepend('<div class="alert alert-' + cssClass + '">' + msg + '</div>');
+        var alertId = "alert-" + (new Date().getTime());
+
+        $('#content .container .row').first().prepend('<div id="' + alertId + '" class="alert alert-' + cssClass + '">' + msg + '</div>');
+
+        setTimeout(function() {
+            $('#' + alertId).fadeOut('slow')
+        }, 5000);
+
     };
 
     return self;
