@@ -14,7 +14,7 @@ programistics.comments = (function () {
 
             $.post('/comments/create', {note_id: options.note_id, comment_body: $('#comment_body').val()},
                 function (resp) {
-                    programistics.helpers.alert(resp);
+                    programistics.helpers.alert(resp, $('#comment-alert-panel'));
                     if (resp.result) {
                         $('#comment_body').val('');
                         loadComments(options.note_id);

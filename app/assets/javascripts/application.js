@@ -18,15 +18,20 @@
 programistics.helpers = (function () {
     var self = {};
 
-    self.alert = function (resp) {
+    self.alert = function (resp, target) {
         var msg = $.isArray(resp.msg) ? resp.msg.join('<br/>') : resp.msg;
         var cssClass = resp.result ? 'success' : 'danger';
 
         var alertId = "alert-" + (new Date().getTime());
 
-        $('#content .container .row').first().prepend('<div id="' + alertId + '" class="alert alert-' + cssClass + '">' + msg + '</div>');
 
-        setTimeout(function() {
+        if (typeof target === "undefined") {
+            target = $('#content .container .row').first();
+        }
+
+        target.prepend('<div id="' + alertId + '" class="alert alert-' + cssClass + '">' + msg + '</div>');
+
+        setTimeout(function () {
             $('#' + alertId).fadeOut('slow')
         }, 5000);
 
