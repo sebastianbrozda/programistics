@@ -6,7 +6,7 @@ describe CreateComment do
 
   context "when comment is valid" do
     it "creates comment" do
-      expect(note).to receive(:create_comment) do
+      expect(note).to receive(:new_comment) do
         comment = Comment.new
         expect(comment).to receive(:save) { true }
         comment
@@ -34,7 +34,7 @@ describe CreateComment do
 
   context "and comment is invalid" do
     it "returns message error" do
-      expect(note).to receive(:create_comment) do
+      expect(note).to receive(:new_comment) do
         comment = Comment.new
         expect(comment).to receive(:errors).at_least(:once) { double('full_messages', full_messages: []) }
         comment

@@ -109,13 +109,14 @@ RSpec.describe Note, :type => :model do
   describe "#create_comment" do
     let(:note) { FactoryGirl.create(:note) }
     let(:comment) do
-      comment = note.create_comment
+      comment = note.new_comment
       comment.user = FactoryGirl.create(:user)
       comment.comment = Faker::Lorem.words
       comment
     end
 
     before do
+      expect(comment.new_record?).to be true
       comment.save
       note.save
     end

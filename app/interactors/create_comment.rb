@@ -3,7 +3,7 @@ class CreateComment
 
   def perform
     note = Note.find_by_id note_id
-    comment = note.create_comment
+    comment = note.new_comment
     comment.user_id = user_id
     comment.comment = comment_body
 

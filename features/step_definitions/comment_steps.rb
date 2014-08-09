@@ -14,7 +14,7 @@ And(/^there are comments:$/) do |table|
     user = User.find_by_user_name attrs[:user_name]
     note = Note.find_by_title attrs[:note_title]
 
-    comment = note.create_comment
+    comment = note.new_comment
     comment.comment = attrs[:comment]
     comment.user = user
     comment.save

@@ -51,8 +51,8 @@ class Note < ActiveRecord::Base
     note_type_id == NoteType::TYPE_PAID_ACCESS
   end
 
-  def create_comment
-    comments.create
+  def new_comment
+    comments.new
   end
 
   private
